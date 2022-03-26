@@ -16,31 +16,17 @@ public class FoodTruck {
 
 	// constructors
 
-	public FoodTruck(int totalTrucks, int truckId, String truckName, String truckFoodType, int truckRating) {
-		this.truckId = truckId;
-		this.truckName = truckName;
-		this.truckFoodType = truckFoodType;
-		this.truckRating = truckRating;
-	}
-
-	public FoodTruck(int id, String name) {
-		this.truckId = truckId;
+	public FoodTruck(String truckName, String truckFoodType, int truckRating) {
+		totalTrucks += 1;
+		this.truckId = totalTrucks;
 		this.truckName = truckName;
 		this.truckFoodType = truckFoodType;
 		this.truckRating = truckRating;
 	}
 
 	public FoodTruck() {
-		this.truckId = truckId;
-		this.truckName = truckName;
-		this.truckFoodType = truckFoodType;
-		this.truckRating = truckRating;
-	}
-
-	// method to create new food truck
-	public void createFoodTruck(int id, String str) {
-		FoodTruck tName = new FoodTruck();
-		tName.truckId = id;
+		totalTrucks += 1;
+		this.truckId = totalTrucks;
 	}
 
 	public static int getTotalTrucks() {
