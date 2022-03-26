@@ -8,95 +8,109 @@ public class FoodTruckApp {
 
 	public static void main(String[] args) {
 
+		FoodTruckApp app = new FoodTruckApp();
+
 		Scanner sc = new Scanner(System.in);
+
 		FoodTruck[] fleetArray = new FoodTruck[5];
+
 		boolean isCreating = true;
-		int counter = 0;
 
 		System.out.println("Welcome to Food Truck Creator");
 		System.out.println("Please enter up to 5 Food Trucks");
 		System.out.println("");
 
-		while (isCreating && counter < 6) {
+		int counter = 0;
+		while (isCreating) {
 
-			System.out.print("Truck name: ");
-			String userTruckName = sc.nextLine();
+			if (counter < 6) {
+				System.out.print("Truck name: ");
+				String userTruckName = sc.nextLine();
 
-			if (userTruckName.equals("quit")) {
-				System.out.print("Goodybye!");
-				isCreating = false;
-				showMenu(fleetArray);
+				if (userTruckName.equals("quit")) {
+					System.out.println("Goodybye!");
+					System.out.println("");
+					isCreating = false;
+					app.showMenu(fleetArray);
+				}
+
+				System.out.print("Truck food type: ");
+				String userTruckFoodType = sc.nextLine();
+
+				System.out.print("Truck rating: ");
+				int userTruckRating = sc.nextInt();
+				sc.nextLine();
+
+				fleetArray[counter] = new FoodTruck(userTruckName, userTruckFoodType, userTruckRating);
+
+				System.out.println();
+				System.out.println();
+
+			} else {
+				System.out.println("You have added the maximum available food trucks. \n");
+				app.showMenu(fleetArray);
 			}
-
-			System.out.print("Truck food type: ");
-			String userTruckFoodType = sc.nextLine();
-
-			System.out.print("Truck rating: ");
-			int userTruckRating = sc.nextInt();
-			sc.nextLine();
-
-			fleetArray[counter] = new FoodTruck(userTruckName, userTruckFoodType, userTruckRating);
-
-			System.out.println();
-			System.out.println();
-			System.out.println();
 			counter++;
 		}
 	}
 
-	private static void showMenu(FoodTruck[] fleetArray) {
+	public void showMenu(FoodTruck[] fleetArray) {
 		Scanner sc = new Scanner(System.in);
 		String userMenuChoice = "";
 		while (userMenuChoice != "quit") {
 			System.out.println("1. List all existing food trucks");
 			System.out.println("2. See the average rating of food trucks");
 			System.out.println("3. Display the highest-rated food truck");
-			System.out.println("4. To quit the program, enter quit)");
+			System.out.println("4. To quit the program, enter 'quit')");
 
 			userMenuChoice = sc.nextLine();
 
 			switch (userMenuChoice) {
 			case "1":
-				// loop through array and sysout existing objects
-				for (int i = 0; i < fleetArray.length; i++) {
-					fleetArray[i].toString();
+				for (FoodTruck foodTruck : fleetArray) {
+					if (foodTruck != null) {
+						System.out.println(foodTruck);
+					}
 				}
+				System.out.println();
 				break;
 
 			case "2":
-				System.out.println("The avg rating is: ");
-				// loop through array and apply the math
+				double avgRating = 0;
+				int counter = 0;
+				for (FoodTruck foodTruck : fleetArray) {
+					if (foodTruck != null) {
+						int rating = foodTruck.getTruckRating();
+						avgRating += rating;
+						counter++;
+					}
+				}
+				avgRating /= counter;
+				System.out.print("The avg rating is: " + avgRating);
+				System.out.println();
+				System.out.println();
 				break;
 
 			case "3":
+				int highest = 0;
+				FoodTruck highestRated = new FoodTruck();
 
-//				loop 
-
+				for (FoodTruck foodTruck : fleetArray) {
+					if (foodTruck != null) {
+						if (highest < foodTruck.getTruckRating()) {
+							highestRated = foodTruck;
+						}
+					}
+				}
+				System.out.println("The highest-rated food truck is: " + highestRated + "\n");
 				break;
 
 			default:
-				break;
+				System.exit(0);
 			}
 		}
 	}
 
 }
-
-// works!
-//		System.out.println(fleetArray[0].getTruckName());
-//		System.out.println(fleetArray[0].getTruckFoodType());
-//		System.out.println(fleetArray[0].getTruckRating());
-
-// #2 If the user inputs quit for the food truck name, input ends immediately
-// and the program continues.
-
-/*
- * After input is complete, the user sees a menu from which they can choose to:
- * a. List all existing food trucks. b. See the average rating of food trucks.
- * c. Display the highest-rated food truck. d. Quit the program.
- */
-
-// After choosing a menu item, the user sees the menu again and can choose
-// another item until the choose to quit.
 
 //	TODO: finish the Readme file 
